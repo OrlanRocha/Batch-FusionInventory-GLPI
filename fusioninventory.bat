@@ -88,8 +88,16 @@ call fusioninventory-agent_windows-%arq_system%_%versao%.exe %setup_Options%
 echo FusionInventory-Agent: Aguardo de 30 segundos para conclusao da instalacao
 
 REM INICIA SERVIÇO CASO NAO INICIOU E FORÇA O INVENTARIO
-sc config FusionInventory-Agent start=auto>nul
-net start FusionInventory-Agent>nul
+
+REM DEFINE SERVIÇO DO AGENTE DE INVENTARIO
+sc config FusionInventory-Agent start=delayed-auto
+
+REM RECUPERAÇÃO REINICIAR SERVIÇO 
+sc Failure FusionInventory-Agent actions=restart/60000ms/restart/60000/restart/60000ms// reset=3600000
+
+REM INICIA SERVIÇO DO AGENTE DE INVENTARIO
+net start FusionInventory-Agent
+
 curl -s http://localhost:62354/status
 curl -s http://localhost:62354/now | find "OK">nul
 curl -s http://localhost:62354/status | find "status:"
