@@ -22,5 +22,5 @@ Este repositório contém um script de **batch** para automatizar a instalação
 1. **Clone o repositório**:
 
    ```bash
-   git clone https://github.com/Luis-Orlan/fusioninventory-agent-installer.git
+   git clone git@github.com:OrlanRocha/Batch-FusionInventory-GLPI.git
    cd fusioninventory-agent-installer
